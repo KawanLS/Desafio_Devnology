@@ -4,7 +4,7 @@ const http = require("http");
 const port = 3000;
 
 (async () => {
-  const browser = await puppeteer.launch({});
+  const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   const bot = new Bot(page);
 
