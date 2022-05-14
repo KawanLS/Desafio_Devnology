@@ -18,7 +18,7 @@ class Bot {
       return items.map((obj) => obj.innerText);
     });
 
-    const filtered_list = [];
+    var filtered_list = [];
 
     for (let item of selected_items) {
       await this.page.evaluate((item) => {
@@ -49,10 +49,17 @@ class Bot {
       await this.page.waitForSelector('[class="page-header"]');
     }
 
-    const ordered_items = filtered_list.sort(function (a, b) {
-      return a.price_item.replace("$", "") > b.price_item.replace("$", "");
+    filtered_list.sort(function (a, b) {
+      if (
+        parseFloat(a.price_item.replace("$", "")) <
+        parseFloat(b.price_item.replace("$", ""))
+      ) {
+        return -1;
+      } else {
+        return true;
+      }
     });
-    return ordered_items;
+    return filtered_list;
   }
 
   async scrapTitle() {
